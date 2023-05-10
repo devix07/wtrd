@@ -1,0 +1,134 @@
+Q1
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palindrome of String</title>
+</head>
+<body>
+    <script>
+        // let str = prompt('Give string');
+        let str = 'This is a string';
+        let newstr = '';
+        let i = str.length - 1;
+        document.write(str);
+        document.write("<br>");
+        document.write(i);
+        document.write("<br>");
+        while (i >= 0) {
+            newstr += str[i];
+            i--;
+        }
+        document.write(newstr);
+        document.write("<br>");
+        if (newstr == str) {
+            document.write('Given string is palindrome');
+        }
+        else {
+            document.write('Given string is not palindrome');
+        }
+    </script>
+</body>
+</html>
+
+=============================================================================================
+
+Q2
+
+<!DOCTYPE html>
+<html>
+<title>assignment3</title>
+<body>
+ <table width="40%" align="left" cellpadding="1" cellspacing="5"  border="1">
+ <tr>
+    <td>Country</td>
+    <td colspan="2">Population(in Crores)</td>
+ </tr>
+ <tr>
+   <td rowspan="3">INDIA</td>
+    <td>1998</td>
+    <td>85</td> 
+  </tr>
+  <tr>
+    <td>1999</td>
+    <td>90</td> 
+  </tr>
+  <tr>
+    <td>2000</td>
+    <td>100</td>  
+  </tr>
+<tr>
+   <td rowspan="3">USA</td>
+    <td>1998</td>
+    <td>30</td> 
+  </tr>
+  <tr>
+    <td>1999</td>
+    <td>35</td> 
+  </tr> 
+  <tr>
+    <td>2000</td>
+    <td>40</td>  
+  </tr>
+<tr>
+   <td rowspan="3">UK</td>
+    <td>1998</td>
+    <td>25</td> 
+  </tr>
+  <tr>
+    <td>1999</td>
+    <td>30</td> 
+  </tr> 
+  <tr>
+    <td>2000</td>
+    <td>35</td>  
+  </tr>
+</table> 
+</body>
+</html>
+
+==================================================================================================================
+
+Q3
+
+SQL> create table department(dno int primary key,dname varchar(20),HOD varchar(20),loc varchar(20));
+SQL> create table project(pno int primary key,pname varchar(20),s_date varchar(25),budget varchar(15),status varchar(10), dno int);
+SQL> insert into department values(1,'computer', 'amit', 'pune');
+SQL> insert into project values(101,'java','10-2- 2015','10,000','P',1);
+
+1) Write a function which accept department name and display total number of projects whose status is "p" (progressive).
+
+SQL> set serveroutput on 
+SQL> create or replace function f1(xyz in varchar)return number as abc number;
+2 begin
+3 select count(project.pno)into abc from department,project where department.dno-project.dno and department.dname='computer' and project.status='P'; 4 if sql %found then
+5 return(abc); 6 else
+7 return null; 8 end if;
+9 end f1;
+10 /
+
+Function created.
+
+SQL> begin
+2 dbms_output.put_line('project- '|| f1 ('computer'));
+3 end;
+4/
+
+2) Write a cursor which will display status wise project details of each department.
+
+SQL> set serveroutput on
+SQL> declare
+2 cursor c1 is select cname, address,pdate from client,poly,cp where client.cno=cp.cno and poly.pno-cp.pno order by pdate;
+3 c c1%rowtype;
+4 begin
+5 open c1;
+6 loop
+7 fetch c1 into c;
+8 exit when c1%notfound;
+9 dbms_output.put_line(c.cname ||"|| c.address||"||c.pdate);
+10 end loop;
+11 close c1;
+12 end;
+13 /
+
+================================================================================================================================================

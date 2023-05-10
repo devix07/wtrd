@@ -1,0 +1,236 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Odd numbers till n</title>
+</head>
+<body>
+    <script>
+        let n=prompt('Give number');
+        let i = 1;
+        while (i <= n) {
+            if (i % 2 != 0) {
+                document.write(i + " ");
+            }
+            i++;
+        }
+    </script>
+</body>
+</html>
+
+====================================================================================
+
+Q2
+
+<!DOCTYPE html>
+<html>
+<title>assignment3</title>
+<body>
+ <table width="50%" align="left" cellpadding="1" cellspacing="1"  border="1">
+  <tr>
+    <td rowspan="2">Book_No</td>
+    <td rowspan="2">Book_Name</td>
+    <td colspan="2" width="50%" align="center"><b>Price</b></td>
+  </tr>
+  <tr align="center">
+    <td width="25%"><b>RS</b></td>
+    <td><b>Paise</b></td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>DBMS</td>
+    <td>200</td>
+    <td>50</td>
+	</tr>
+  <tr>
+    <td>102</td>
+    <td>C-Prog</td>
+    <td>150</td>
+    <td>75</td>
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>JAVA</td>
+    <td>300</td>
+    <td>00</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>PHP</td>
+    <td>250</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>ASP</td>
+    <td>100</td>
+    <td>00</td>
+  </tr>
+</table> 
+</body>
+</html>
+
+================================================================================================
+
+Q3
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jun 28 18:56:07 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+
+
+SQL> create table stud(s_no number(5) primary key,
+  2  s_name varchar(10) NOT NULL,
+  3  s_class varchar(15));
+
+Table created.
+
+SQL> create table comp(c_no number(5) primary key,
+  2  c_name varchar(10) NOT NULL,
+  3  c_type varchar(10));
+
+Table created.
+
+SQL> create table relation(s_no number(5) references stud(s_no),
+  2  c_no number(5) references comp(c_no),
+  3  rank number(5),
+  4  year number(5));
+
+Table created.
+
+SQL> insert into stud values(&s_no,'&s_name','&s_class');
+Enter value for s_no: 1
+Enter value for s_name: Parth
+Enter value for s_class: BCA
+old   1: insert into stud values(&s_no,'&s_name','&s_class')
+new   1: insert into stud values(1,'Parth','BCA')
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 2
+Enter value for s_name: Rahul
+Enter value for s_class: BSC
+old   1: insert into stud values(&s_no,'&s_name','&s_class')
+new   1: insert into stud values(2,'Rahul','BSC')
+
+1 row created.
+
+SQL> insert into comp values(&c_no,'&c_name','&c_type');
+Enter value for c_no: 101
+Enter value for c_name: Running
+Enter value for c_type: Sports
+old   1: insert into comp values(&c_no,'&c_name','&c_type')
+new   1: insert into comp values(101,'Running','Sports')
+
+1 row created.
+
+SQL> /
+Enter value for c_no: 102
+Enter value for c_name: Drawing
+Enter value for c_type: Art
+old   1: insert into comp values(&c_no,'&c_name','&c_type')
+new   1: insert into comp values(102,'Drawing','Art')
+
+1 row created.
+
+SQL> create or replace function fun2(no_comp in varchar)return number as nofcom number;
+  2  begin
+  3  select count(comp.c_no) into nofcom
+  4  from stud,comp,relation
+  5  where stud.s_no=relation.s_no
+  6  and comp.c_no=relation.c_no
+  7  and stud.s_no=1;
+  8  if sql %found then
+  9  return(nofcom);
+ 10  else
+ 11  return null;
+ 12  end if;
+ 13  end fun2;
+ 14  /
+
+Function created.
+
+SQL> begin
+  2  dbms_output.put_line('no of competition--'||fun2(2015));
+  3  end;
+  4  /
+no of competition--0
+
+PL/SQL procedure successfully completed.
+
+SQL> insert into relation values(&s_no,&c_no,&rank,&year);
+Enter value for s_no: 1
+Enter value for c_no: 102
+Enter value for rank: 3
+Enter value for year: 2014
+old   1: insert into relation values(&s_no,&c_no,&rank,&year)
+new   1: insert into relation values(1,102,3,2014)
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 2
+Enter value for c_no: 101
+Enter value for rank: 1
+Enter value for year: 2020
+old   1: insert into relation values(&s_no,&c_no,&rank,&year)
+new   1: insert into relation values(2,101,1,2020)
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 1
+Enter value for c_no: 101
+Enter value for rank: 2
+Enter value for year: 2010
+old   1: insert into relation values(&s_no,&c_no,&rank,&year)
+new   1: insert into relation values(1,101,2,2010)
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 2
+Enter value for c_no: 102
+Enter value for rank: 1
+Enter value for year: 2016
+old   1: insert into relation values(&s_no,&c_no,&rank,&year)
+new   1: insert into relation values(2,102,1,2016)
+
+1 row created.
+
+SQL> declare
+  2  cursor c1(xyz relation.year%type)is
+  3  select c_name,c_type,year
+  4  from stud,comp,relation
+  5  where stud.s_no=relation.s_no
+  6  and comp.c_no=relation.c_no
+  7  order by year;
+  8  c c1 %rowtype;
+  9  begin
+ 10  open c1('&xyz');
+ 11  LOOP
+ 12  fetch c1 into c;
+ 13  exit when c1 %notfound;
+ 14  dbms_output.put_line(c.c_name || '  ' ||c.c_type || '  ' ||c.year);
+ 15  end loop;
+ 16  close c1;
+ 17  end;
+ 18  /
+Enter value for xyz: 2010
+old  10: open c1('&xyz');
+new  10: open c1('2010');
+Running  Sports  2010
+Drawing  Art  2014
+Drawing  Art  2016
+Running  Sports  2020
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+==================================================================================================

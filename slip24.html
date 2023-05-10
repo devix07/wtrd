@@ -1,0 +1,96 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Odd Numbers</title>
+</head>
+<body>
+    <script>
+        let num = prompt('Give number');
+        let r, sum = 0;
+        document.write("Given number : " + num + "<br>");
+        function oddsum() 
+	{
+            while (num > 0) 
+	    {
+                r = num % 10;
+                if (r % 2 != 0) 
+		{
+                    sum += r;
+                }
+                num = (num - r) / 10;
+            }
+        }
+        oddsum();
+        document.write("The sum of odd in given number is " + sum);
+    </script>
+</body>
+</html>
+================================================================================================
+
+Q2
+
+<!DOCTYPE html>
+<html>
+<dl>i. Arts</dl>
+  <ul>
+  <li>BA</li>
+  <li>MA</li>
+</ul> 
+<dl>ii.Commerce</dl>
+ <ul>
+  <li>Bcom</li>
+  <li>Mcom</li>
+</ul> 
+ <dl>iii.Science</dl>
+ <ul>
+  <li>B.Sc.</li>
+  <li>M.SC.</li>
+  <ul>
+</body>
+</html> 
+
+============================================================================================================
+
+Q3
+
+Student (rollno, sname, class, timetable)
+Lab (LabNo, LabName, capacity, equipment)
+
+Relation between Student and Lab is Many to One. 
+Constraint: Primary Key, capacity should not be null. 
+
+Create a RDB in 3NF and write PL/SQL blocksin Oracle for the following:
+
+1) Write a procedure to display details of students which perform practical sessions in a given Lab.
+
+SQL> set serveroutput on
+SQL> create or replace procedure p1(n in varchar) as cursor c1 is select sname,LabName,class from Student,Lab where Student.LabNo-Lab.LabNo;
+2 c c1 %rowtype;
+3 begin
+4 open c1;
+5 dbms_output.put_line('sname' | |"|| 'LabNam e' || " || 'class');
+6 loop
+7 fetch c1 into c;
+8 exit when c1 %notfound;
+9 if(c.pname=n)then
+10 dbms_output.put_line(c.sname ||"||c.LabNa me||"||C.class);
+11 end if;
+12 end loop;
+13 close c1;
+14 end;
+15 /
+
+2)Write a trigger which will fire before delete on Lab (Raise user defined exception and give appropriate message)
+
+SQL> set serveroutput on
+SQL> create or replace trigger t4 before delete on Lab
+2 for each row
+3 begin
+4 if(new.LabName=0)then
+5 raise_application_error(-20001, 'LabName>0');
+6 end if;
+7 end;
+8 /
+
+===================================================================================================================================================

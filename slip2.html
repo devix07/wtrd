@@ -1,0 +1,359 @@
+Q1
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var a = prompt('Give number');
+        var i = 1;
+        var newline = "<br>"
+        while (i <= 10) {
+            document.write(i * a);
+            document.write(newline);
+            i++;
+        }
+    </script>
+</body>
+</html>
+
+======================================================================================================
+Q2
+
+<!DOCTYPE html>
+<html>
+<title>assignment3</title>
+<body>
+ <table width="50%" align="left" cellpadding="1" cellspacing="5"  border="3">
+  <tr align="center">
+    <td rowspan="2">Book_No</td>
+    <td rowspan="2">Book_Name</td>
+    <td colspan="2">Price</td>
+</tr>
+  <tr>
+    <td width="25%" align="center">RS</td>
+    <td width="25%" align="center">Paise</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>DBMS</td>
+    <td>200</td>
+    <td>50</td>
+   </tr>
+  <tr>
+    <td>102</td>
+    <td>C-Prog</td>
+    <td>150</td> 
+    <td>75</td>  
+  </tr>
+  <tr>
+    <td>103</td>
+    <td>JAVA</td>
+    <td>300</td>
+    <td>00</td>
+  </tr>
+  <tr>
+    <td>104</td>
+    <td>PHP</td>
+    <td>250</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>105</td>
+    <td>ASP</td>
+    <td>100</td>
+    <td>00</td>
+  </tr>
+</table> 
+</body>
+</html>
+
+
+==============================================================================================
+
+Q3
+
+Q1write
+create or replace function tosup return number
+is
+total_count number;
+begin
+select count(*) into total_count from Item11,Sup11,It_Sup11 where Item11.Ino=It_Sup11.Ino1 and Sup11.Sno=It_Sup11.Sno1 and Iname='Keyboard';
+return total_count;
+end;
+
+call function-----------
+1)By using select keyword
+select tosup from dual
+
+2)By using calling program
+declare
+total_count2 number;
+begin
+total_count2:=tosup;
+dbms_output.put_line('Total Number of suppler to provide KEYBOARD Is'||total_count2);
+end;
+
+Q2write
+create or replace trigger Rate
+before insert or update of Rate on It_Sup11
+for each row
+begin
+if:new.Rate<=0then
+raise_application_error(-20001,'insert valid rate');
+end if;
+end;
+
+_________________________________________________________________________________________________________________________________
+
+
+SQL> SET SERVEROUTPUT ON
+SQL> create table item(i_no number(5) primary key,
+  2  i_name varchar(10));
+
+Table created.
+
+SQL> create table supplier(s_no number(5) primary key,
+  2  s_name varchar(10),
+  3  addr varchar(10),
+  4  city varchar(10));
+
+Table created.
+
+SQL> create table relation(i_no number(5) references item(i_no),
+  2  s_no number(5) references supplier(s_no),
+  3  rate number(5),
+  4  quantity number(5));
+
+Table created.
+
+SQL> insert into item values(&i_no,'&i_name');
+Enter value for i_no: 1
+Enter value for i_name: Book
+old   1: insert into item values(&i_no,'&i_name')
+new   1: insert into item values(1,'Book')
+
+1 row created.
+
+SQL> 2
+SP2-0226: Invalid line number
+SQL> /
+Enter value for i_no: 2
+Enter value for i_name: Computer
+old   1: insert into item values(&i_no,'&i_name')
+new   1: insert into item values(2,'Computer')
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 3
+Enter value for i_name: Goods
+old   1: insert into item values(&i_no,'&i_name')
+new   1: insert into item values(3,'Goods')
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 4
+Enter value for i_name: Furniture
+old   1: insert into item values(&i_no,'&i_name')
+new   1: insert into item values(4,'Furniture')
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 5
+Enter value for i_name: Mobile
+old   1: insert into item values(&i_no,'&i_name')
+new   1: insert into item values(5,'Mobile')
+
+1 row created.
+
+SQL> insert into supplier values(&s_no,'&s_name','&addr','&city');
+Enter value for s_no: 101
+Enter value for s_name: Parth
+Enter value for addr: Hirawadi
+Enter value for city: Nashik
+old   1: insert into supplier values(&s_no,'&s_name','&addr','&city')
+new   1: insert into supplier values(101,'Parth','Hirawadi','Nashik')
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 102
+Enter value for s_name: Ritu
+Enter value for addr: Dadar
+Enter value for city: Mumbai
+old   1: insert into supplier values(&s_no,'&s_name','&addr','&city')
+new   1: insert into supplier values(102,'Ritu','Dadar','Mumbai')
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 103
+Enter value for s_name: Rahul
+Enter value for addr: Deolali
+Enter value for city: Nashik
+old   1: insert into supplier values(&s_no,'&s_name','&addr','&city')
+new   1: insert into supplier values(103,'Rahul','Deolali','Nashik')
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 104
+Enter value for s_name: Rohit
+Enter value for addr: Pimpri
+Enter value for city: Pune
+old   1: insert into supplier values(&s_no,'&s_name','&addr','&city')
+new   1: insert into supplier values(104,'Rohit','Pimpri','Pune')
+
+1 row created.
+
+SQL> /
+Enter value for s_no: 105
+Enter value for s_name: Pratik
+Enter value for addr: vasant
+Enter value for city: Delhi
+old   1: insert into supplier values(&s_no,'&s_name','&addr','&city')
+new   1: insert into supplier values(105,'Pratik','vasant','Delhi')
+
+1 row created.
+
+SQL> insert into relation values(&i_no,&s_no,&rate,&quantity);
+Enter value for i_no: 1
+Enter value for s_no: 104
+Enter value for rate: 50000
+Enter value for quantity: 10
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(1,104,50000,10)
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 4
+Enter value for s_no: 101
+Enter value for rate: 21000
+Enter value for quantity: 10
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(4,101,21000,10)
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 2
+Enter value for s_no: 103
+Enter value for rate: 7100
+Enter value for quantity: 5
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(2,103,7100,5)
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 5
+Enter value for s_no: 102
+Enter value for rate: 60000
+Enter value for quantity: 20
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(5,102,60000,20)
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 3
+Enter value for s_no: 105
+Enter value for rate: 8500
+Enter value for quantity: 40
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(3,105,8500,40)
+
+1 row created.
+
+SQL> /
+Enter value for i_no: 3
+Enter value for s_no: 105
+Enter value for rate: 8500
+Enter value for quantity: 5
+old   1: insert into relation values(&i_no,&s_no,&rate,&quantity)
+new   1: insert into relation values(3,105,8500,5)
+
+1 row created.
+
+SQL> select * from item;
+
+      I_NO I_NAME
+---------- ----------
+         1 Book
+         2 Computer
+         3 Goods
+         4 Furniture
+         5 Mobile
+
+SQL> select * from supplier;
+
+      S_NO S_NAME     ADDR       CITY
+---------- ---------- ---------- ----------
+       101 Parth      Hirawadi   Nashik
+       102 Ritu       Dadar      Mumbai
+       103 Rahul      Deolali    Nashik
+       104 Rohit      Pimpri     Pune
+       105 Pratik     vasant     Delhi
+
+SQL> select * from relation;
+
+      I_NO       S_NO       RATE   QUANTITY
+---------- ---------- ---------- ----------
+         1        104      50000         10
+         4        101      21000         10
+         2        103       7100          5
+         5        102      60000         20
+         3        105       8500         40
+         3        105       8500          5
+
+6 rows selected.
+
+SQL> create or replace function f2(abc IN varchar) return number as xyz number;
+  2  begin
+  3  select sum(supplier.s_no) into xyz
+  4  from item,supplier,relation
+  5  where item.i_no=relation.i_no
+  6  and supplier.s_no=relation.s_no
+  7  and item.i_name='Goods';
+  8     if sql%FOUND then
+  9     return(xyz);
+ 10     else
+ 11     return null;
+ 12     end if;
+ 13  end f2;
+ 14  /
+
+Function created.
+
+SQL> begin
+  2  dbms_output.put_line('item'  || f2('Goods'));
+  3  end;
+  4  /
+item210
+
+PL/SQL procedure successfully completed.
+
+
+SQL> create or replace trigger t3 before insert on relation
+  2  for each row
+  3  declare
+  4  invalid_rate EXCEPTION;
+  5  begin
+  6     if(:new.rate<=0) then
+  7     raise invaild_rate;
+  8     end if;
+  9  EXCEPTION
+ 10  WHEN invalid_rate then
+ 11  raise_application_error(-20001,'Error::Rate must be greater than 0');
+ 12  end;
+ 13  /
+
+Warning: Trigger created with compilation errors.
+
+======================================================================================================

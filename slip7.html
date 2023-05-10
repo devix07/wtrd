@@ -1,0 +1,351 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vowel Count</title>
+</head>
+<body>
+    <script>
+        let str = prompt('Give string');
+        let nstr = str.toLowerCase();
+        let count = 0;
+        document.write(nstr);
+        for (let i = 0; i < nstr.length; i++) {
+            if (nstr[i] == 'a' || nstr[i] == 'e' || nstr[i] == 'i' || nstr[i] == 'o' || nstr[i] == 'u') {
+                count++;
+            }
+        }
+        document.write('The count of vowel in given string is ' + count);
+    </script>
+</body>
+</html>
+================================================================================================================================
+
+Q2
+
+<html>
+<head>
+	<style>
+		body {background-color: skyblue;}
+		th {background-color: magenta;}
+	</style>
+</head>
+<body>
+<h2 style="color:lightyellow";>Ashoka Education Foundation's</h2>
+<h4>Ashoka Center for Business and Computer Studies</h4>
+<h5><b><u>FYBBA(CA) Timetable 2022-23(15th May-20th May 2021)</u></b></h5>
+<table cellspacing="3" cellpadding=10% border="2">
+<tr>
+	<th>Time</th>
+	<th>Monday</th>
+	<th>Tuesday</th>
+	<th>Wednesday</th>
+	<th>Thursday</th>
+	<th>friday</th>
+	<th>Saturday</th>
+</tr>
+<tr>
+	<th>10.15 AM - 11.05 AM</th>
+	<th>206 - Lab SP/KK</th>
+	<th>206 - Lab SP/KK</th>
+	<th>205 - KK</th>
+	<th>204 - SP</th>
+	<th>205 - KK</th>
+	<th>205 - KK</th>
+</tr>
+<tr>
+	<th>11.15 AM - 12.05 PM</th>
+	<th>206 - Lab SP/KK</th>
+	<th>206 - Lab SP/KK</th>
+	<th>201 - MS</th>
+	<th>202 - AS</th>
+	<th>201 - MS</th>
+	<th>204 - SP</th>
+</tr>
+<tr>
+	<th>12.15 PM - 1.05 PM</th>
+	<th>201 - MS</th>
+	<th>202 - AS</th>
+	<th>203 - NY</th>
+	<th>203 - NY</th>
+	<th>204 - SP</th>
+	<th>207 - KP</th>
+</tr>
+<tr>
+	<th>1.15 PM - 2.05 PM</th>
+	<th>202 - AS</th>
+	<th>204 - SP</th>
+	<th>207 - KP</th>
+	<th>207 - KP</th>
+	<th>203 - NY</tH>
+	<th>205 - KK</th>
+</tr>
+</table>
+<marquee><h5>Note : Every saturday at 2:15 pm there will be mentorship lecture for Fy and SY classes.</h5></marquee>
+</body>
+</html>
+
+==============================================================================================================================
+
+Q3
+SQL*Plus: Release 11.2.0.2.0 Production on Sat May 22 17:10:11 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+SQL> SET SERVEROUTPUT ON
+SQL> create table bill(b_no number(5) primary key,
+  2  day varchar(10),
+  3  table_no number(5),
+  4  total number(5));
+
+Table created.
+
+SQL> create table menu(dish_no number(5) primary key,
+  2  dish_desc varchar(15),
+  3  price number(5) CHECK(price>0));
+
+Table created.
+
+SQL> create table relation(b_no number(5) references bill(b_no),
+  2  dish_no number(5) references menu(dish_no),
+  3  quantity number(5));
+
+Table created.
+
+SQL> insert into bill values(&b_no,'&day',&table_no,&total);
+Enter value for b_no: 1
+Enter value for day: Monday
+Enter value for table_no: 1000
+Enter value for total: 560
+old   1: insert into bill values(&b_no,'&day',&table_no,&total)
+new   1: insert into bill values(1,'Monday',1000,560)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 2
+Enter value for day: Sunday
+Enter value for table_no: 1001
+Enter value for total: 755
+old   1: insert into bill values(&b_no,'&day',&table_no,&total)
+new   1: insert into bill values(2,'Sunday',1001,755)
+
+1 row created.
+
+SQL> 3
+SP2-0226: Invalid line number
+SQL> /
+Enter value for b_no: 3
+Enter value for day: Tuesday
+Enter value for table_no: 1003
+Enter value for total: 400
+old   1: insert into bill values(&b_no,'&day',&table_no,&total)
+new   1: insert into bill values(3,'Tuesday',1003,400)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 4
+Enter value for day: Friday
+Enter value for table_no: 1004
+Enter value for total: 350
+old   1: insert into bill values(&b_no,'&day',&table_no,&total)
+new   1: insert into bill values(4,'Friday',1004,350)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 5
+Enter value for day: Monday
+Enter value for table_no: 1005
+Enter value for total: 625
+old   1: insert into bill values(&b_no,'&day',&table_no,&total)
+new   1: insert into bill values(5,'Monday',1005,625)
+
+1 row created.
+
+SQL> insert into menu values(&dish_no,'&dish_desc',&price);
+Enter value for dish_no: 101
+Enter value for dish_desc: Herbal
+Enter value for price: 105
+old   1: insert into menu values(&dish_no,'&dish_desc',&price)
+new   1: insert into menu values(101,'Herbal',105)
+
+1 row created.
+
+SQL> /
+Enter value for dish_no: 102
+Enter value for dish_desc: Rich
+Enter value for price: 250
+old   1: insert into menu values(&dish_no,'&dish_desc',&price)
+new   1: insert into menu values(102,'Rich',250)
+
+1 row created.
+
+SQL> /
+Enter value for dish_no: 103
+Enter value for dish_desc: Spicy
+Enter value for price: 250
+old   1: insert into menu values(&dish_no,'&dish_desc',&price)
+new   1: insert into menu values(103,'Spicy',250)
+
+1 row created.
+
+SQL> /
+Enter value for dish_no: 104
+Enter value for dish_desc: Crispy
+Enter value for price: 300
+old   1: insert into menu values(&dish_no,'&dish_desc',&price)
+new   1: insert into menu values(104,'Crispy',300)
+
+1 row created.
+
+SQL> insert into relation values(&b_no,&dish_no,&quantity);
+Enter value for b_no: 1
+Enter value for dish_no: 104
+Enter value for quantity: 4
+old   1: insert into relation values(&b_no,&dish_no,&quantity)
+new   1: insert into relation values(1,104,4)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 2
+Enter value for dish_no: 101
+Enter value for quantity: 2
+old   1: insert into relation values(&b_no,&dish_no,&quantity)
+new   1: insert into relation values(2,101,2)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 4
+Enter value for dish_no: 103
+Enter value for quantity: 3
+old   1: insert into relation values(&b_no,&dish_no,&quantity)
+new   1: insert into relation values(4,103,3)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 1
+Enter value for dish_no: 104
+Enter value for quantity: 5
+old   1: insert into relation values(&b_no,&dish_no,&quantity)
+new   1: insert into relation values(1,104,5)
+
+1 row created.
+
+SQL> /
+Enter value for b_no: 2
+Enter value for dish_no: 103
+Enter value for quantity: 1
+old   1: insert into relation values(&b_no,&dish_no,&quantity)
+new   1: insert into relation values(2,103,1)
+
+1 row created.
+
+SQL> select * from bill;
+
+      B_NO DAY          TABLE_NO      TOTAL
+---------- ---------- ---------- ----------
+         1 Monday           1000        560
+         2 Sunday           1001        755
+         3 Tuesday          1003        400
+         4 Friday           1004        350
+         5 Monday           1005        625
+
+SQL> select * from menu;
+
+   DISH_NO DISH_DESC            PRICE
+---------- --------------- ----------
+       101 Herbal                 105
+       102 Rich                   250
+       103 Spicy                  250
+       104 Crispy                 300
+
+SQL> select * from relation;
+
+      B_NO    DISH_NO   QUANTITY
+---------- ---------- ----------
+         1        104          4
+         2        101          2
+         4        103          3
+         1        104          5
+         2        103          1
+
+SQL> create or replace procedure p1(a in varchar)as cursor c1 is select dish_no,price,day
+  2  from bill,menu,relation
+  3  where bill.b_no=relation.b_no
+  4  AND menu.dish_no=relation.dish_no
+  5  AND price between 200 and 500
+  6  AND day='Monday';
+  7  c c1 %rowtype;
+  8  begin
+  9  open c1;
+ 10  dbms_output.put_line('Dish_no'   ||   '   '   ||  'Price'   '   '   ||   'Day');
+ 11  loop
+ 12  fetch c1 into c;
+ 13  exit when c1 %notfound;
+ 14  if(c.day=a)then
+ 15  dbms_output.put_line('c.Dish_no'   ||   '   '   ||  'c.Price'   '   '   ||   'c.Day');
+ 16  end if;
+ 17  end loop;
+ 18  close c1;
+ 19  end;
+ 20  /
+
+Warning: Procedure created with compilation errors.
+
+
+
+SQL> create or replace procedure p5(a in varchar)as cursor c5 is select dish_no,price,day
+  2  from bill,menu,relation
+  3  where bill.b_no=relation.b_no
+  4  AND menu.dish_no=relation.dish_no
+  5  AND price between 200 and 500
+  6  AND day='Monday';
+  7  c c1 %rowtype;
+  8  begin
+  9  open c1;
+ 10  dbms_output.put_line('Dish_no'   ||   '   '   ||  'Price'   '   '   ||   'Day');
+ 11  loop
+ 12  fetch c1 into c;
+ 13  exit when c1 %notfound;
+ 14  if(c.day=a)then
+ 15  dbms_output.put_line('c.dish_no'   ||   '   '   ||  'c.price'   '   '   ||   'c.day');
+ 16  end if;
+ 17  end loop;
+ 18  close c1;
+ 19  end;
+ 20  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> create or replace trigger t5 before insert or update on menu
+  2  for each row
+  3  begin
+  4  if(:new.price<=0) then
+  5  raise_application_error(-20001,'price>0');
+  6  end if;
+  7  end;
+  8  /
+
+Trigger created.
+
+SQL> insert into menu values(105,'Rice',0);
+insert into menu values(105,'Rice',0)
+            *
+ERROR at line 1:
+ORA-20001: price>0
+ORA-06512: at "SYSTEM.T5", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.T5'
+
+
+SQL>
+
+===================================================================================================

@@ -1,0 +1,371 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sum of digits</title>
+</head>
+<body>
+    <script>
+        let a = prompt('Give number');
+        let sum = 0;
+        let r;
+        while (a > 0) {
+            r = a % 10;
+            sum += r;
+            a = (a - r) / 10;
+        }
+        document.write('The sum of given number is ' + sum);
+    </script>
+</body>
+</html>
+
+========================================================================================
+
+Q2
+
+<!DOCTYPE html>  
+<html>  
+    <frameset rows = "30%,*">  
+        <frame name = "top" src = "frame_1.html" >  
+	<frameset cols = "30%,*">  
+        <frame name = "main" src = "frame_2.html" >  
+         <frame name = "button" src = "frame.html" >  
+</frameset> 
+</html>              
+  <li style="color: #FF5733">Infosys</li>
+  <li style="color:hsl(300, 100%, 70%)">Persistent</li>
+  <li style="color:rgb(255, 204, 0)">Microsoft</li>
+</ul>
+</body>
+</html>
+
+File : frame_1.html
+
+<html>
+<title> Assignment no.4 b2</title>
+<body>
+<head><h1><font> IT Industries in INDIA</h1></head>
+</body>
+</html>
+
+File : frame_2.html
+
+<html>
+<title>Assignment No.4 B1</title>
+<body>
+<ul>City
+<ol type="1">
+<li><a href="pune.html" target="button">Pune</a></li> 	
+<li><a href="Mumbai.html" target="button">Mumbai</a></li> 	
+</ol>
+</ul>
+</body>
+</html>
+
+File : Mumbai.html
+
+<html>
+<title> Assignment no.4 b2</title>
+<body>
+<ul type="square">Mumbai
+<ul type="circle">
+  <li style="color: #FF5733">Infosys</li>
+  <li style="color:hsl(300, 100%, 70%)">Persistent</li>
+  <li style="color:rgb(255, 204, 0)">Microsoft</li>
+</ul>
+</ul>
+</html>
+
+File : pune.html
+
+<html>
+<title> Assignment no.4 b2</title>
+<body>
+<ul type="square">Pune
+<ul type="circle">
+  <li style="color: #FF5733">Infosys</li>
+  <li style="color:hsl(300, 100%, 70%)">Persistent</li>
+  <li style="color:rgb(255, 204, 0)">Microsoft</li>
+</ul>
+</ul>
+</html>
+
+==========================================================================================
+
+Q3
+
+Q1write
+create or replace procedure pubname(pub_name1 in newspaper.language%type)
+as
+cursor sau is select name, cost, qty
+from newspaper, cities, details
+where cities.pincode=details.pincode1 and newspaper.name=details.name1
+order by cost desc;
+prod number;
+name varchar2(30);
+cost number(10);
+qty number(10);
+
+begin
+open sau;
+loop
+fetch sau into name,cost,qty;
+exit when sau%notfound;
+prod:=cost*qty;
+DBMS_OUTPUT.PUT_LINE('customer_id =' || name);
+DBMS_OUTPUT.PUT_LINE('quantity value =' || cost);
+DBMS_OUTPUT.PUT_LINE('price =' || qty);
+DBMS_OUTPUT.PUT_LINE('The total value of customer purchases is = ' || prod);
+end loop;
+close sau;
+END
+
+declare
+pub_name5 newspaper.language%type;
+begin
+pubname(pub_name5);
+end;
+
+Q2
+create or replace trigger pincode
+before insert or update of pincode on cities
+for each row
+begin
+if:new.pincode=6 then
+raise_application_error(-20001,'insert valid price');
+end if;
+end;
+
+---------------------------------------------------------------------------------------------------------------------------
+
+SQL> SET SERVEROUTPUT ON
+SQL> drop table city;
+
+Table dropped.
+
+SQL> create table newspaper(name varchar(10) primary key,
+  2  language varchar(10),
+  3  publisher varchar(10),
+  4  cost number(5));
+
+Table created.
+
+SQL> create table city(pincode number(5) primary key,
+  2  city varchar(10),
+  3  state varchar(10));
+
+Table created.
+
+SQL> create table relation(name varchar(10) references newspaper(name),
+  2  pincode number(5) references city(pincode));
+
+Table created.
+
+SQL> insert into newspaper values('&name','&language','&publisher',&cost);
+Enter value for name: Lokmat
+Enter value for language: English
+Enter value for publisher: Lokmat
+Enter value for cost: 5
+old   1: insert into newspaper values('&name','&language','&publisher',&cost)
+new   1: insert into newspaper values('Lokmat','English','Lokmat',5)
+
+1 row created.
+
+SQL> /
+Enter value for name: Hindu
+Enter value for language: English
+Enter value for publisher: Hindu
+Enter value for cost: 8
+old   1: insert into newspaper values('&name','&language','&publisher',&cost)
+new   1: insert into newspaper values('Hindu','English','Hindu',8)
+
+1 row created.
+
+SQL> /
+Enter value for name: Morung
+Enter value for language: Hindi
+Enter value for publisher: Morung
+Enter value for cost: 10
+old   1: insert into newspaper values('&name','&language','&publisher',&cost)
+new   1: insert into newspaper values('Morung','Hindi','Morung',10)
+
+1 row created.
+
+SQL> /
+Enter value for name: Hindustan
+Enter value for language: Marathi
+Enter value for publisher: Hindustan
+Enter value for cost: 15
+old   1: insert into newspaper values('&name','&language','&publisher',&cost)
+new   1: insert into newspaper values('Hindustan','Marathi','Hindustan',15)
+
+1 row created.
+
+SQL> insert into city values(&pincode,'&city','&state');
+Enter value for pincode: 422003
+Enter value for city: Nashik
+Enter value for state: Maharashtra
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(422003,'Nashik','Maharashtra')
+insert into city values(422003,'Nashik','Maharashtra')
+                        *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into city values(&pincode,'&city','&state');
+Enter value for pincode: 42203
+Enter value for city: Nashik
+Enter value for state: Maharashtra
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(42203,'Nashik','Maharashtra')
+insert into city values(42203,'Nashik','Maharashtra')
+                                       *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."CITY"."STATE" (actual: 11,
+maximum: 10)
+
+
+SQL> insert into city values(&pincode,'&city','&state');
+Enter value for pincode: 42203
+Enter value for city: Nashik
+Enter value for state: Maha
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(42203,'Nashik','Maha')
+
+1 row created.
+
+SQL> /
+Enter value for pincode: 42204
+Enter value for city: Mumbai
+Enter value for state: Maha
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(42204,'Mumbai','Maha')
+
+1 row created.
+
+SQL> /
+Enter value for pincode: 42205
+Enter value for city: Pimpri
+Enter value for state: Pune
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(42205,'Pimpri','Pune')
+
+1 row created.
+
+SQL> /
+Enter value for pincode: 42208
+Enter value for city: Delhi
+Enter value for state: Delhi
+old   1: insert into city values(&pincode,'&city','&state')
+new   1: insert into city values(42208,'Delhi','Delhi')
+
+1 row created.
+
+SQL> insert into relation values('&name',&pincode);
+Enter value for name: Lokmat
+Enter value for pincode: 42204
+old   1: insert into relation values('&name',&pincode)
+new   1: insert into relation values('Lokmat',42204)
+
+1 row created.
+
+SQL> /
+Enter value for name: Hindustan
+Enter value for pincode: 42208
+old   1: insert into relation values('&name',&pincode)
+new   1: insert into relation values('Hindustan',42208)
+
+1 row created.
+
+SQL> /
+Enter value for name: Lokmat
+Enter value for pincode: 42203
+old   1: insert into relation values('&name',&pincode)
+new   1: insert into relation values('Lokmat',42203)
+
+1 row created.
+
+SQL> /
+Enter value for name: Morung
+Enter value for pincode: 42204
+old   1: insert into relation values('&name',&pincode)
+new   1: insert into relation values('Morung',42204)
+
+1 row created.
+
+SQL> select * from newspaper;
+
+NAME       LANGUAGE   PUBLISHER        COST
+---------- ---------- ---------- ----------
+Lokmat     English    Lokmat              5
+Hindu      English    Hindu               8
+Morung     Hindi      Morung             10
+Hindustan  Marathi    Hindustan          15
+
+SQL> select * from city;
+
+   PINCODE CITY       STATE
+---------- ---------- ----------
+     42203 Nashik     Maha
+     42204 Mumbai     Maha
+     42205 Pimpri     Pune
+     42208 Delhi      Delhi
+
+SQL> select * from relation;
+
+NAME          PINCODE
+---------- ----------
+Lokmat          42204
+Hindustan       42208
+Lokmat          42203
+Morung          42204
+
+SQL> create or replace trigger t2 before insert on city
+  2  for each row
+  3  declare
+  4  invalid_pincode EXCEPTION;
+  5  BEGIN
+  6     IF(:new.Pincode<>6) THEN
+  7     raise invalid_pincode;
+  8     end if;
+  9  EXCEPTION
+ 10  WHEN invalid_pincode then
+ 11  raise_application_error(-20002,'Error::Pincode must be of 6 Digit');
+ 12  end;
+ 13  /
+
+Trigger created.
+
+SQL> create or replace procedure p2(t in varchar)as cursor c2 is select city,cost
+  2  from newspaper,city,relation
+  3  where newspaper.name=relation.name
+  4  AND city.pincode=relation.pincode
+  5  AND cost=(select sum(cost) from newspaper);
+  6  c c2 %rowtype;begin
+  7  open c2;
+  8  dbms_output.put_line('city'   ||   '  '   ||   'cost');
+  9  loop
+ 10  fetch c2 into c;
+ 11  exit when c2 %notfound;
+ 12  if(c.city=t) then
+ 13  dbms_output.put_line(c.city   ||   '  '   ||   c.cost);
+ 14  end if;
+ 15  end loop;
+ 16  close c2;
+ 17  end;
+ 18  /
+
+Procedure created.
+
+SQL> begin
+  2  p2('Pune');
+  3  end;
+  4  /
+city  cost
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+==========================================================================================================

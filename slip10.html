@@ -1,0 +1,237 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factors of Number</title>
+</head>
+<body>
+    <input type="number" name="num" id="num">
+    <button onclick="factors()">Calculate</button>
+    <div id="facts"></div>
+    <script>
+        function factors() {
+            let num = document.getElementById("num").value;
+            console.log(num);
+            let factarr = [];
+            for (let i = 1; i < num; i++) {
+                if (num % i == 0) {
+                    factarr.push(i);
+                }
+            }
+            document.getElementById("facts").innerHTML = factarr;
+        }
+    </script>
+</body>
+</html>
+
+============================================================================================================
+
+Q2
+
+<!DOCTYPE html>
+<html>
+<title>My html practical</title>
+<dl>1. DYP</dl>
+ <ul type="circle">
+  <li><font color="red" size="2" face="arial">Courses</font>
+  <ul type="square">
+  <li>BCS</li>
+  <li>MCS</li>
+  </ul>
+  </li>
+</ul> 
+<dl>2. Indira</dl>
+ <ul type="circle">
+  <li><font color="orange" size="4" face="Albertus Extra Bold">Courses</font>
+  <ul type="square">
+  <li>BCA</li>
+  <li>MCs</li>
+  </ul>
+  </li>
+</ul>
+<dl>3. ATSS</dl>
+ <ul type="circle">
+  <li><font color="yellow" size="6" face="Antique Olive Compact">Courses</font>
+  <ul type="square">
+  <li>BBA</li>
+  <li>BCS</li>
+  </ul>
+  </li>
+</ul>
+</body>
+</html> 
+
+=====================================================================================================================
+
+Q3
+SQL> SET SERVEROUTPUT ON
+SQL> create table gym(g_no number(5) primary key,
+  2  g_name varchar(10),
+  3  city varchar(10),
+  4  charges number(10) CHECK(charges>0),
+  5  scheme varchar(10));
+
+Table created.
+
+SQL> create table member(m_id number(5) primary key,
+  2  m_name varchar(10),
+  3  ph_no number(10),
+  4  addr varchar(10),
+  5  g_no number(5) references gym(g_no));
+
+Table created.
+
+SQL> insert into gym values(&g_no,'&g_name','&city',&charges,'&scheme');
+Enter value for g_no: 1
+Enter value for g_name: Ranger
+Enter value for city: Nashik
+Enter value for charges: 5500
+Enter value for scheme: Gold
+old   1: insert into gym values(&g_no,'&g_name','&city',&charges,'&scheme')
+new   1: insert into gym values(1,'Ranger','Nashik',5500,'Gold')
+
+1 row created.
+
+SQL> /
+Enter value for g_no: 2
+Enter value for g_name: Aqua
+Enter value for city: Mumbai
+Enter value for charges: 2500
+Enter value for scheme: Silver
+old   1: insert into gym values(&g_no,'&g_name','&city',&charges,'&scheme')
+new   1: insert into gym values(2,'Aqua','Mumbai',2500,'Silver')
+
+1 row created.
+
+SQL> /
+Enter value for g_no: 3
+Enter value for g_name: Black
+Enter value for city: Pune
+Enter value for charges: 6500
+Enter value for scheme: Diamond
+old   1: insert into gym values(&g_no,'&g_name','&city',&charges,'&scheme')
+new   1: insert into gym values(3,'Black','Pune',6500,'Diamond')
+
+1 row created.
+
+SQL> insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no);
+Enter value for m_id: 101
+Enter value for m_name: Parth
+Enter value for ph_no: 7020022897
+Enter value for addr: Hirawadi
+Enter value for g_no: 3
+old   1: insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no)
+new   1: insert into member values(101,'Parth',7020022897,'Hirawadi',3)
+
+1 row created.
+
+SQL> /
+Enter value for m_id: 102
+Enter value for m_name: Ritu
+Enter value for ph_no: 7410073003
+Enter value for addr: dadar
+Enter value for g_no: 2
+old   1: insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no)
+new   1: insert into member values(102,'Ritu',7410073003,'dadar',2)
+
+1 row created.
+
+SQL> /
+Enter value for m_id: 103
+Enter value for m_name: Rahul
+Enter value for ph_no: 7845621568
+Enter value for addr: Deolali
+Enter value for g_no: 2
+old   1: insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no)
+new   1: insert into member values(103,'Rahul',7845621568,'Deolali',2)
+
+1 row created.
+
+SQL> /
+Enter value for m_id: 104
+Enter value for m_name: Lavesha
+Enter value for ph_no: 7512482154
+Enter value for addr: Pimpri
+Enter value for g_no: 1
+old   1: insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no)
+new   1: insert into member values(104,'Lavesha',7512482154,'Pimpri',1)
+
+1 row created.
+
+
+SQL> /
+Enter value for m_id: 105
+Enter value for m_name: Namrata
+Enter value for ph_no: 7854698125
+Enter value for addr: Dadar
+Enter value for g_no: 3
+old   1: insert into member values(&m_id,'&m_name',&ph_no,'&addr',&g_no)
+new   1: insert into member values(105,'Namrata',7854698125,'Dadar',3)
+
+1 row created.
+
+SQL> select * from gym;
+
+      G_NO G_NAME     CITY          CHARGES SCHEME
+---------- ---------- ---------- ---------- ----------
+         1 Ranger     Nashik           5500 Gold
+         2 Aqua       Mumbai           2500 Silver
+         3 Black      Pune             6500 Diamond
+
+SQL> select * from member;
+
+      M_ID M_NAME          PH_NO ADDR             G_NO
+---------- ---------- ---------- ---------- ----------
+       101 Parth      7020022897 Hirawadi            3
+       102 Ritu       7410073003 dadar               2
+       103 Rahul      7845621568 Deolali             2
+       104 Lavesha    7512482154 Pimpri              1
+       105 Namrata    7854698125 Dadar               3
+
+SQL> create  or replace function fun(abc IN varchar) return number as xyz number;
+  2  begin
+  3  select gym.charges into xyz from
+  4  gym,member
+  5  where gym.g_no=member.g_no
+  6  AND m_id=102;
+  7     if sql%found then
+  8     return(xyz);
+  9     else
+ 10     return null;
+ 11     end if;
+ 12  end fun;
+ 13  /
+
+Function created.
+
+SQL> begin
+  2  dbms_output.put_line('Gym-' || fun(102));
+  3  end;
+  4  /
+Gym-2500
+
+PL/SQL procedure successfully completed.
+
+SQL> create  or replace trigger tig before insert or update on gym
+  2  for each row
+  3  begin
+  4  if(:new.charges<=0) then
+  5  raise_application_error(-20001,'charges>0');
+  6  end if;
+  7  end;
+  8  /
+
+Trigger created.
+
+SQL> insert into gym values(4,'Aqua','Pune',0,'Gold');
+insert into gym values(4,'Aqua','Pune',0,'Gold')
+            *
+ERROR at line 1:
+ORA-20001: charges>0
+ORA-06512: at "SYSTEM.TIG", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.TIG'
+
+
+SQL>
+
+====================================================-----------===============================================================================================

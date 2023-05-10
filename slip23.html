@@ -1,0 +1,260 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sum of Given Number</title>
+</head>
+<body>
+    <script>
+        let num = prompt('Give number');
+        let r, sum = 0;
+        document.write("Given number : " + num + "<br>");
+        while (num > 0) {
+            r = num % 10;
+            sum += r;
+            num = (num - r) / 10;
+        }
+        document.write("The sum of given number is " + sum);
+    </script>
+</body>
+</html>
+
+============================================================================================
+Q2
+
+<html>
+<body> <table border=1>
+<tr>
+<th ROWSPAN="2">Course</th> 
+<th colspan="3">Fee Structure</th> 
+<th ROWSPAN="2">Year</th> 
+</tr>
+<tr>
+<td>FY</td>
+<td>SY</td> 
+<td>TY</td>
+</tr>
+<tr>
+<td>B.Sc.(CS)</td> 
+<td>2000</td>
+<td>2500</td>
+<td>3000</td>
+<td>2017</td>
+</tr>
+<tr>
+<td>BCA(Sci)</td>
+<td>2000</td>
+<td>2500</td>
+<td>3000</td>
+<td>2017</td>
+</tr>
+<tr>
+<td>BBA(CA)</td>
+<td>2000</td>
+<td>2500</td>
+<td>3000</td>
+<td>2017</td>
+</tr>
+</table>
+</body>
+</html>
+
+=================================================================================================
+
+Q3
+SQL> SET SERVEROUTPUT ON
+
+SQL> create table wholesaler(w_no number(5) primary key,
+  2  w_name varchar(10),
+  3  addr varchar(10),
+  4  city varchar(10));
+
+Table created.
+
+SQL> create table product(p_no number(5) primary key,
+  2  p_name varchar(15),
+  3  rate number(5) CHECK(rate>0));
+
+Table created.
+
+SQL> create table relation(quantity number(5),
+  2  w_no number(5) references wholesaler(w_no),
+  3  p_no number(5) references product(p_no));
+
+Table created.
+
+
+SQL> insert into wholesaler values(&w_no,'&w_name','&addr','&city');
+Enter value for w_no: 1
+Enter value for w_name: Patil
+Enter value for addr: Panchavati
+Enter value for city: Nashik
+old   1: insert into wholesaler values(&w_no,'&w_name','&addr','&city')
+new   1: insert into wholesaler values(1,'Patil','Panchavati','Nashik')
+
+1 row created.
+
+SQL> /
+Enter value for w_no: 2
+Enter value for w_name: Gulve
+Enter value for addr: Gangapur
+Enter value for city: Mumbai
+old   1: insert into wholesaler values(&w_no,'&w_name','&addr','&city')
+new   1: insert into wholesaler values(2,'Gulve','Gangapur','Mumbai')
+
+1 row created.
+
+SQL> /
+Enter value for w_no: 3
+Enter value for w_name: Nambiar
+Enter value for addr: Bhagur
+Enter value for city: Deolali
+old   1: insert into wholesaler values(&w_no,'&w_name','&addr','&city')
+new   1: insert into wholesaler values(3,'Nambiar','Bhagur','Deolali')
+
+1 row created.
+
+
+SQL> select * from wholesaler;
+
+      W_NO W_NAME     ADDR       CITY
+---------- ---------- ---------- ----------
+         1 Patil      Panchavati Nashik
+         2 Gulve      Gangapur   Mumbai
+         3 Nambiar    Bhagur     Deolali
+
+
+
+SQL> insert into product values(&p_no,'&p_name','&rate');
+Enter value for p_no: 101
+Enter value for p_name: Bedsheet
+Enter value for rate: 750
+old   1: insert into product values(&p_no,'&p_name','&rate')
+new   1: insert into product values(101,'Bedsheet','750')
+
+1 row created.
+
+SQL> /
+Enter value for p_no: 102
+Enter value for p_name: Jeans
+Enter value for rate: 900
+old   1: insert into product values(&p_no,'&p_name','&rate')
+new   1: insert into product values(102,'Jeans','900')
+
+1 row created.
+
+SQL> /
+Enter value for p_no: 103
+Enter value for p_name: Shirt
+Enter value for rate: 500
+old   1: insert into product values(&p_no,'&p_name','&rate')
+new   1: insert into product values(103,'Shirt','500')
+
+1 row created.
+
+
+SQL> insert into relation values('&quantity','&w_no','&p_no');
+Enter value for quantity: 100
+Enter value for w_no: 1
+Enter value for p_no: 103
+old   1: insert into relation values('&quantity','&w_no','&p_no')
+new   1: insert into relation values('100','1','103')
+
+1 row created.
+
+SQL> /
+Enter value for quantity: 50
+Enter value for w_no: 2
+Enter value for p_no: 102
+old   1: insert into relation values('&quantity','&w_no','&p_no')
+new   1: insert into relation values('50','2','102')
+
+1 row created.
+
+SQL> /
+Enter value for quantity: 60
+Enter value for w_no: 3
+Enter value for p_no: 101
+old   1: insert into relation values('&quantity','&w_no','&p_no')
+new   1: insert into relation values('60','3','101')
+
+1 row created.
+
+
+SQL> select * from relation;
+
+  QUANTITY       W_NO       P_NO
+---------- ---------- ----------
+       100          1        103
+        50          2        102
+        60          3        101
+
+
+
+
+SQL> create or replace procedure p6(t in varchar)as cursor c6 is
+  2  select w_name,p_name,rate
+  3  from wholesaler,product,relation
+  4  where wholesaler.w_no=relation.w_no
+  5  and product.p_no=relation.p_no
+  6  and w_name='Patil';
+  7  c c6 %rowtype;
+  8  begin
+  9  open c6;
+ 10  dbms_output.put_line('w_name'  ||  ' '  ||  'p_name'  ||  ' '  ||  'rate');
+ 11  loop
+ 12  fetch c6 into c;
+ 13  exit when c6 %notfound;
+ 14     if(c.w_name=t) then
+ 15  dbms_output.put_line(c.w_name  ||  ' '  ||  c.p_name  ||  ' '  ||  c.rate);
+ 16  end if;
+ 17  end loop;
+ 18  close c6;
+ 19  end;
+ 20  /
+
+Procedure created.
+
+
+SQL> begin
+  2  p6('Patil');
+  3  end;
+  4  /
+w_name p_name rate
+Patil Shirt 500
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+SQL> declare
+  2  cursor c7(r wholesaler.w_name %type) is
+  3  select w_name,p_name
+  4  from wholesaler,product,relation
+  5  where wholesaler.w_no=relation.w_no
+  6  and product.p_no=relation.p_no
+  7  order by w_name;
+  8  c c7 %rowtype;
+  9  begin
+ 10  open c7('&r');
+ 11  loop
+ 12  fetch c7 into c;
+ 13  exit when c7 %notfound;
+ 14  dbms_output.put_line(c.w_name  ||  ' '  ||  c.p_name);
+ 15  end loop;
+ 16  close c7;
+ 17  end;
+ 18  /
+Enter value for r: 900
+old  10: open c7('&r');
+new  10: open c7('900');
+Gulve Jeans
+Nambiar Bedsheet
+Patil Shirt
+
+PL/SQL procedure successfully completed.
+
+SQL>
+=============================================================================================================

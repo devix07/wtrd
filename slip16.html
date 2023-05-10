@@ -1,0 +1,307 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Replacing space with '*' and number with '?'</title>
+</head>
+<body>
+    <script>
+	let str = prompt('give string');
+	document.write(str + "<br>");
+        let i = 0;
+        let newStr = '';
+        while (i < str.length) {
+            if (str[i] == ' ') {
+                newStr += '*';
+            }
+            else if (str[i] >= '0' && str[i] <= '9') {
+                newStr += '?';
+            }
+            else {
+                newStr += str[i];
+            }
+            i++;
+        }
+        document.write(newStr);
+    </script>
+</body>
+</html>
+
+=======================================================================================================
+
+Q2
+
+<!DOCTYPE html>
+<html>
+<title>My html practical</title>
+<dl>1. Honda</dl>
+ <ul type="circle">
+  <li><font color="red" size="2" face="arial">Petrol</font>
+  <ul type="1">
+  <li>Honda City</li>
+  <li>Brio</li>
+  </ul>
+  </li>
+</ul> 
+ <ul type="circle">
+  <li><font color="orange" size="4" face="Albertus Extra Bold">Diesel</font>
+  <ul type="1">
+  <li>Amaze</li>
+  <li>Brio</li>
+  </ul>
+  </li>
+</ul>
+<dl>3. Maruti-suzuki</dl>
+ <ul type="circle">
+  <li><font color="yellow" size="6" face="Antique Olive Compact">Petrol</font>
+  <ul type="1">
+  <li>Swift</li>
+  <li>Ritz</li>
+  </ul>
+  </li>
+</ul>
+<ul type="circle">
+  <li><font color="orange" size="4" face="Albertus Extra Bold">Diesel</font>
+  <ul type="1">
+  <li>Swift-Desire</li>
+  </ul>
+  </li>
+</ul>
+</body>
+</html>
+
+
+===================================================================================
+
+Q3
+SQL> SET SERVEROUTPUT ON
+
+
+SQL> create table game(g_name varchar(15) primary key,
+  2  no_of_player number(10) CHECK(no_of_player>0),
+  3  c_name varchar(15));
+
+Table created.
+
+SQL> create table player(p_id number(5) primary key,
+  2  p_name varchar(15),
+  3  addr varchar(15),
+  4  club_name varchar(15));
+
+Table created.
+
+
+SQL> create table relation(g_name varchar(15) references game(g_name),
+  2  p_id number(5) references player(p_id));
+
+Table created.
+
+SQL> insert into game values('&g_name',&no_of_players,'&c_name');
+Enter value for g_name: Badminton
+Enter value for no_of_players: 2
+Enter value for c_name: Prakash
+old   1: insert into game values('&g_name',&no_of_players,'&c_name')
+new   1: insert into game values('Badminton',2,'Prakash')
+
+1 row created.
+
+SQL> /
+Enter value for g_name: Cricket
+Enter value for no_of_players: 9
+Enter value for c_name: Sachin
+old   1: insert into game values('&g_name',&no_of_players,'&c_name')
+new   1: insert into game values('Cricket',9,'Sachin')
+
+1 row created.
+
+SQL> /
+Enter value for g_name: Tennis
+Enter value for no_of_players: 2
+Enter value for c_name: Advait
+old   1: insert into game values('&g_name',&no_of_players,'&c_name')
+new   1: insert into game values('Tennis',2,'Advait')
+
+1 row created.
+
+SQL> select * from game;
+
+G_NAME          NO_OF_PLAYER C_NAME
+--------------- ------------ ---------------
+Badminton                  2 Prakash
+Cricket                    9 Sachin
+Tennis                     2 Advait
+
+
+SQL> insert into player values(&p_id,'&p_name','&addr','&club_name');
+Enter value for p_id: 1
+Enter value for p_name: Ritu
+Enter value for addr: Panchavati
+Enter value for club_name: Golf Club
+old   1: insert into player values(&p_id,'&p_name','&addr','&club_name')
+new   1: insert into player values(1,'Ritu','Panchavati','Golf Club')
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 2
+Enter value for p_name: Parth
+Enter value for addr: Hirawadi
+Enter value for club_name: Lions Club
+old   1: insert into player values(&p_id,'&p_name','&addr','&club_name')
+new   1: insert into player values(2,'Parth','Hirawadi','Lions Club')
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 3
+Enter value for p_name: Namrata
+Enter value for addr: Gangapur
+Enter value for club_name: Players
+old   1: insert into player values(&p_id,'&p_name','&addr','&club_name')
+new   1: insert into player values(3,'Namrata','Gangapur','Players')
+
+1 row created.
+
+SQL> /
+Enter value for p_id: 4
+Enter value for p_name: Rahul
+Enter value for addr: Deolali
+Enter value for club_name: Victory
+old   1: insert into player values(&p_id,'&p_name','&addr','&club_name')
+new   1: insert into player values(4,'Rahul','Deolali','Victory')
+
+1 row created.
+
+
+SQL> select * from player;
+
+      P_ID P_NAME          ADDR            CLUB_NAME
+---------- --------------- --------------- ---------------
+         1 Ritu            Panchavati      Golf Club
+         2 Parth           Hirawadi        Lions Club
+         3 Namrata         Gangapur        Players
+         4 Rahul           Deolali         Victory
+
+
+SQL> insert into relation values('&g_name',&p_id);
+Enter value for g_name: Badminton
+Enter value for p_id: 1
+old   1: insert into relation values('&g_name',&p_id)
+new   1: insert into relation values('Badminton',1)
+
+1 row created.
+
+SQL> /
+Enter value for g_name: Cricket
+Enter value for p_id: 2
+old   1: insert into relation values('&g_name',&p_id)
+new   1: insert into relation values('Cricket',2)
+
+1 row created.
+
+SQL> /
+Enter value for g_name: Tennis
+Enter value for p_id: 3
+old   1: insert into relation values('&g_name',&p_id)
+new   1: insert into relation values('Tennis',3)
+
+1 row created.
+
+SQL> /
+Enter value for g_name: Badminton
+Enter value for p_id: 4
+old   1: insert into relation values('&g_name',&p_id)
+new   1: insert into relation values('Badminton',4)
+
+1 row created.
+
+SQL> select * from relation;
+
+G_NAME                P_ID
+--------------- ----------
+Badminton                1
+Cricket                  2
+Tennis                   3
+Badminton                4
+
+SQL> create or replace procedure p2(n in varchar) as cursor c2 is
+  2  select g_name,c_name
+  3  from game,player,relation
+  4  where game.g_name=relation.g_name
+  5  and player.p_id=relation.p_id
+  6  and no_of_player>5;
+  7  c c2 %rowtype;
+  8  begin
+  9  open c2;
+ 10  dbms_output.put_line('g_name'  ||  ' '  ||  'c_name');
+ 11  loop fetch c2 into c;
+ 12  exit when c2 %notfound;
+ 13     if(c.g_name=n) then
+ 14  dbms_output.put_line(c.g_name  ||  ' '  ||  c.c_name);
+ 15  end if;
+ 16  end loop;
+ 17  close c2;
+ 18  end;
+ 19  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> begin
+  2  p2('Tennis');
+  3  end;
+  4  /
+p2('Tennis');
+*
+ERROR at line 2:
+ORA-06550: line 2, column 1:
+PLS-00905: object SYSTEM.P2 is invalid
+ORA-06550: line 2, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> create or replace procedure p5(n in varchar) as cursor c5 is
+  2  select g_name,c_name
+  3  from game,player,relation
+  4  where game.g_name=relation.g_name
+  5  and player.p_id=relation.p_id
+  6  and no_of_player>5;
+  7  c c5 %rowtype;
+  8  begin
+  9  open c5;
+ 10  dbms_output.put_line('g_name'  ||  ' '  ||  'c_name');
+ 11  loop fetch c5 into c;
+ 12  exit when c5 %notfound;
+ 13     if(c.g_name=n) then
+ 14  dbms_output.put_line(c.g_name  ||  ' '  ||  c.c_name);
+ 15  end if;
+ 16  end loop;
+ 17  close c5;
+ 18  end;
+ 19  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> create or replace procedure p5(n in varchar) as cursor c5 is
+  2  select g_name,c_name
+  3  from game,player,relation
+  4  where game.g_name=relation.g_name
+  5  and player.p_id=relation.p_id
+  6  and no_of_player>2;
+  7  c c5 %rowtype;
+  8  begin
+  9  open c5;
+ 10  dbms_output.put_line('g_name'  ||  ' '  ||  'c_name');
+ 11  loop fetch c5 into c;
+ 12  exit when c5 %notfound;
+ 13     if(c.g_name=n) then
+ 14  dbms_output.put_line(c.g_name  ||  ' '  ||  c.c_name);
+ 15  end if;
+ 16  end loop;
+ 17  close c5;
+ 18  end;
+ 19  /
+
+Warning: Procedure created with compilation errors.
+
+SQL>
+============================================================================================================

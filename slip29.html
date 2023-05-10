@@ -1,0 +1,104 @@
+Q1
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Largest of 3 numbers </title>
+</head>
+<body>
+    <script>
+        let n1 = prompt('Give First Number');
+        let n2 = prompt('Give Second Number');
+        let n3 = prompt('Give Third Number');
+        if (n1 > n2 && n1 > n3) {
+            document.write('largest no is ' + n1);
+        }
+        else if (n2 > n1 && n2 > n3) {
+            document.write('largest no is ' + n2);
+        }
+        if (n3 > n1 && n3 > n2) {
+            document.write('largest no is ' + n3);
+        }
+    </script>
+</body>
+</html>
+=========================================================================================
+
+Q2
+<html>
+<head>
+<title>
+<center>MY CITY</center>
+</title></head>
+<body bgcolor="pink">
+<FONT SIZE="7" FACE="ARIAL"COLOR="BLUE">
+<CENTER>PUNE,
+<SMALL>MAHARASHTRA</SMALL>
+</FONT>
+<BR>
+<BODY BGCOLOR="RED">
+<CENTER>
+<font size="4" face="arial"
+color="pink"<B>Landmarks</B>
+</font><BR>
+<font size="4" face="arial"
+color="yellow"<B>SHANIVAR WADA</B>
+</font><BR>
+<font size="4" face="arial"
+color="red"<B>Empharence Mall</B></font><BR>
+<font size="4" face="arial" color="blue"<B>Ganesh
+Tekadi</B></font><BR>
+<BODY BGCOLOR="PINK"<CENTER>
+<MARQUEE BEHAVIOUR="SLIDE"> Wonderful Place To Visit</MARQUEE>
+<MARQUEE BEHAVIOUR="SLIDE">Pune Is the first capital of Chatrapati Shivaji Maharaj</MARQUEE> 
+<MARQUEE BEHAVIOUR="SLIDE">Pune Is best City for Education</MARQUEE>
+<IMG SRC="b.jpg" WIDTH="400" HEIGHT="400" ALT="IMAGE CANNOT BE DISPLAYED">
+</body>
+</html>
+
+=====================================================================================================
+Q3
+
+Employee (emp_id, emp_name, address)
+Investment (inv_no, inv_name, inv_date,inv_amount)
+
+Relation between Employee and Investment is One to Many.
+Constraint: Primary key, inv_amount should be > 0.
+
+SQL>create table employee(e_id int primary key,e_name varchar(10),address varchar(10));
+SQL> insert into employee values(1,'reshma','koregoan');
+SQL>create table investment(inv_no int primary key,inv_name varchar(10),inv_date varchar(10),inv_amount int,e_id int);
+SQL> insert into investment values(1,'house','15thaug', '50000',1);
+
+1)Write a function which will return total investment amount of a particular client.
+
+SQL> set serveroutput on
+SQL> create or replace function fun1 (abc invarchar)return varchar as xyz varchar(10
+2 begin);
+
+3 select sum(investment.inv_amount)into xyz from employee,investment where employee.e_id=investment.e_id and e_name='roma';
+4 if sql %found then
+5 return(xyz);
+6 else
+7 return null;
+8 end if;
+9 end fun1;
+10/
+
+Function created.
+
+SQL> begin
+2 dbms_output.put_line('invamount-'||fun1('roma'));
+3 end;
+4/
+
+2)Write a trigger which will fire before insert or update on Investment havinginvestment amount less than 50000. (Raise user defined exception and give appropriate message)
+
+SQL> set serveroutput on;
+SQL> create or replace trigger t2 before insert or update on investment
+2 for each row 3 begin
+4 if(new.inv_amount<=50000) then
+5 raise_application_error(-20001,'inv_amount>0');
+6 end if;
+7 end;
+8 /
+============================================================================================================
